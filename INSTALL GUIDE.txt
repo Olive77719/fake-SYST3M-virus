@@ -1,0 +1,23 @@
+==========================
+ SYST3M Fake Virus Setup
+==========================
+
+This folder contains plain-text copies of all the code so you can rebuild the simulation manually.
+
+1. Copy everything from "Original_Code.txt"
+   → Paste into a new file and save as:
+     SYST3M_IS_MAD.html
+
+2. Copy everything from "Batch_Launcher.txt"
+   → Paste into a new file and save as:
+     sys_is_mad_do_not_awake.bat
+
+3. Place both files in the same folder.
+
+4. Double-click the .bat file to open the page in your browser.
+
+5. Follow on-screen instructions.
+   Press F11 to exit fullscreen any time.
+
+⚠️ This is a visual simulation only.
+It does not install or modify anything on your computer.
