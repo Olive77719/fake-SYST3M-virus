@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>SYST3M IS MAD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root { --red:#f00; --soft:#ff4444; --bg:#000; --grey:#999; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background:#000; color:var(--red); font-family:Consolas, "Courier New", monospace; }
+  .wrap { min-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .glow { text-shadow:0 0 8px var(--red), 0 0 18px #ff2222; }
+  .flicker { animation:flicker 1.3s infinite; }
+  @keyframes flicker {
+    0%,19%,21%,23%,25%,54%,56%,100% {opacity:1}
+    20%,24%,55% {opacity:0.6}
+  }
+  .btn { padding:18px 38px; background:#111; color:var(--red); border:2px solid var(--red); font-size:1.25rem; cursor:pointer; text-shadow:0 0 8px var(--red); }
+  .btn:hover { filter:brightness(1.2); }
+  .muted { color:#ff6666; }
+  .tiny { color:#666; font-size:.9rem; margin-top:14px; }
+  /* BOOT spinner (Win11-ish dots) */
+  .spinner { margin-top:24px; display:inline-block; position:relative; width:70px; height:24px; }
+  .spinner div { position:absolute; top:10px; width:8px; height:8px; border-radius:50%; background:#fff; animation:spin 1.2s linear infinite; }
+  .spinner div:nth-child(1){ left:0; animation-delay:0s }
+  .spinner div:nth-child(2){ left:14px; animation-delay:.1s }
+  .spinner div:nth-child(3){ left:28px; animation-delay:.2s }
+  .spinner div:nth-child(4){ left:42px; animation-delay:.3s }
+  .spinner div:nth-child(5){ left:56px; animation-delay:.4s }
+  @keyframes spin { 0%,80%,100%{ transform:scale(0) } 40%{ transform:scale(1.0) } }
+
+  /* FNF-ish red corner HUD */
+  .hud { position:fixed; top:10px; left:12px; color:#ff2a2a; font-weight:700; text-shadow:2px 2px #300; letter-spacing:1px; }
+  .glitchy { animation:glitch 0.35s infinite; }
+  @keyframes glitch {
+    0% { transform:translate(0) }
+    25% { transform:translate(-1px,1px) }
+    50% { transform:translate(1px,-1px) }
+    75% { transform:translate(-1px,-1px) }
+    100%{ transform:translate(0) }
+  }
+
+  /* RSOD look */
+  .rsod { background:#7f0000; color:#fff; }
+  .rsod .glow { text-shadow:0 0 10px #fff, 0 0 20px #ffbbbb; }
+
+  /* hidden screens */
+  .screen { display:none; }
+  .show { display:flex; }
+</style>
+</head>
+<body>
+  <div id="hud" class="hud glitchy">FPS: ???</div>
+
+  <!-- Screen A: Landing -->
+  <section id="screenA" class="wrap screen show">
+    <div>
+      <h1 class="glow flicker">SYST3M IS MAD</h1>
+      <p class="muted">⚠️ YOU SHOULDN'T HAVE AWAKENED HIM ⚠️</p>
+      <button id="enterBtn" class="btn">ENTER</button>
+      <div class="tiny">(Press <b>F11</b> anytime to exit fullscreen)</div>
+    </div>
+  </section>
+
+  <!-- Screen B: Installing -->
+  <section id="screenB" class="wrap screen">
+    <div>
+      <h1 class="glow">Installing NotMyFault...</h1>
+      <p class="muted">Please wait...</p>
+      <div class="tiny">This is a visual simulation for lore (no real install)</div>
+    </div>
+  </section>
+
+  <!-- Screen C: NotMyFault mock with one option -->
+  <section id="screenC" class="wrap screen">
+    <div>
+      <h1 class="glow">NotMyFault</h1>
+      <p class="muted">Choose an option to continue:</p>
+      <button id="bootBtn" class="btn">
+        Ḃ̷͖̹͍̫̰̹̬͓̯͎͓̈͂͗͗̇̽́̇̾́̈́͆͌Ǫ̷̗̦̔O̸̡͓͔̫̘̝͔̪̪͑̕T̸̛̤͉͔̮̲̰͖̼̜̖͓̬̈̀̊̿̈̎̉Ļ̴̖̹͇̪̬̞̦̠̘͙̘̟́̋̏̄͝ͅO̷̢͎̭̗̱̤̣̰̹̓͗͜͝O̴̡̮̰͇̭̰͇̟͚͖̬̺̮͎͑́͝P̴̛͓͖̜̀͛́̀͊̔̓̅͑̓̐́̕
+      </button>
+      <div class="tiny">Press <b>F11</b> to exit fullscreen anytime</div>
+    </div>
+  </section>
+
+  <!-- Screen D: RSOD -->
+  <section id="screenD" class="wrap screen rsod">
+    <div>
+      <h1 class="glow">💀 RSOD: SYST3M_BROKE_PC 💀</h1>
+      <p>Attempted ban of SYST3M.exe detected</p>
+      <p>Device entering /loopkill</p>
+      <div class="tiny">Press <b>F11</b> to exit fullscreen</div>
+    </div>
+  </section>
+
+  <!-- Screen E: Fake Windows 11 boot -->
+  <section id="screenE" class="wrap screen">
+    <div>
+      <h1 style="color:#fff;letter-spacing:.12em;margin:0">S Y S T 3 M</h1>
+      <div class="spinner" aria-hidden="true">
+        <div></div><div></div><div></div><div></div><div></div>
+      </div>
+      <p style="color:#888;margin-top:8px">Starting Windows…</p>
+      <div class="tiny">Press <b>F11</b> to exit fullscreen</div>
+    </div>
+  </section>
+
+<script>
+  const A = document.getElementById('screenA');
+  const B = document.getElementById('screenB');
+  const C = document.getElementById('screenC');
+  const D = document.getElementById('screenD');
+  const E = document.getElementById('screenE');
+  const enterBtn = document.getElementById('enterBtn');
+  const hud = document.getElementById('hud');
+
+  function show(el){ [A,B,C,D,E].forEach(s=>s.classList.remove('show')); el.classList.add('show'); }
+
+  // ENTER → request fullscreen, go to Installing (B)
+  enterBtn.addEventListener('click', async () => {
+    try {
+      if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen();
+      }
+    } catch(e){}
+    show(B);
+
+    // after 60s → NotMyFault mock (C)
+    setTimeout(() => {
+      show(C);
+      // wire button now that C exists
+      const bootBtn = document.getElementById('bootBtn');
+      bootBtn.addEventListener('click', () => {
+        // RSOD (D)
+        show(D);
+        // after 5s → fake Win11 boot (E)
+        setTimeout(() => show(E), 5000);
+      });
+    }, 60000); // 60,000 ms = 1 minute
+  });
+
+  // tiny idle HUD “glitch”
+  setInterval(()=>{
+    hud.textContent = Math.random() < .2 ? 'FPS: ???' : 'FPS: ???';
+  }, 350);
+</script>
+
+</body>
+</html>
+
